@@ -169,7 +169,7 @@ class DataModel {
     public static double edod = 0;
     public static double dynamic = 0;
     public static List<Integer> epochs = new ArrayList<>();
-    public static String testDataPathAndFile = "/home/ruediger/git/ALNS-and-RHACO-for-DVRP/Testdata converted to Distance Matrix.csv";
-    public static String resultOutputPath = "/home/ruediger/git/ALNS-and-RHACO-for-DVRP";
+    public static String testDataPathAndFile;
+    public static String resultOutputPath;
 
 }

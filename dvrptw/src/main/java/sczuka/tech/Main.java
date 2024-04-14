@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        DataModel.testDataPathAndFile = "/home/ruediger/git/ALNS-and-RHACO-for-DVRP/Testdata converted to Distance Matrix.csv";
+        DataModel.testDataPathAndFile = "/home/ruediger/git/ALNS-and-RHACO-for-DVRP/cleanupTestdata.csv";
         DataModel.resultOutputPath = "/home/ruediger/git/ALNS-and-RHACO-for-DVRP";
         try {
             AntColonyOptimization.main(args);
