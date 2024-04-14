@@ -31,6 +31,9 @@ public class AdaptiveLargeNeighborhoodSearch {
     private final int twoOptCount;
     private final double temperatureCoefficient = -0.05 / Math.log(0.5);
     private static int noNodesToDestroy = 40;
+    private static double sigma_1 = 1;
+    private static double sigma_2 = 0.4;
+    private static double sigma_3 = 0.25;
 
     public static void main(String[] args) throws FileNotFoundException {
         File csvOutputFile = Paths.get(DataModel.resultOutputPath, "ALNS.csv").toFile();
@@ -152,17 +155,17 @@ public class AdaptiveLargeNeighborhoodSearch {
                 if (isBetter(currentSolution, bestSolution)) {
 
                     i = 1;
-                    score = 1;
+                    score = sigma_1;
                     bestSolution = currentSolution.copy();
                 } else {
-                    score = 0.4;
+                    score = sigma_2;
                 }
             } else {
                 double temp = temperatureCoefficient * currentSolution.getFunctionValue();
                 double acceptanceProbability = Math.exp((currentSolution.getFunctionValue() - repaired.getFunctionValue()) / temp);
                 if (random.nextDouble() <= acceptanceProbability) {
                     currentSolution = repaired.copy();
-                    score = 0.25;
+                    score = sigma_3;
                 } else {
                     score = 0;
                 }
