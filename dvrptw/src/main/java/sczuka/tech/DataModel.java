@@ -135,13 +135,58 @@ class DataModel {
             edod = edodSumValue / noCustomers;
             dynamic = 1.0 - sigma.stream().mapToDouble(Double::doubleValue).sum() / maxSigma.stream().mapToDouble(Double::doubleValue).sum();
 
-            System.err.println("dod: " + dod);
-            System.err.println("edod: " + edod);
-            System.err.println("dynamic: " + dynamic);
-
         } catch (IOException | SecurityException | ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public static double calculateStandardDeviation(int[] array) {
+        double mean = calculateMean(array);
+
+        // calculate the standard deviation
+        double standardDeviation = 0.0;
+        for (double num : array) {
+            standardDeviation += Math.pow(num - mean, 2);
+        }
+
+        return Math.sqrt(standardDeviation / array.length);
+    }
+
+    public static double calculateMean(int[] array) {
+        // get the sum of array
+        double sum = 0.0;
+        for (double i : array) {
+            sum += i;
+        }
+
+        // get the mean of array
+        int length = array.length;
+        return sum / length;
+    }
+
+    public static double calculateMedian(int[] array) {
+        int length = array.length;
+        int[] copy = Arrays.copyOf(array, length);
+
+        Arrays.sort(copy);
+        // get the sum of array
+        int floorOfHalfLength = length / 2;
+        if (length % 2 == 0) {
+            // get the mean of the two value in the middle of the sorted array
+            return (copy[floorOfHalfLength] + copy[floorOfHalfLength - 1]) / 2.0;
+
+        } else {
+            // get the value in the middle of the sorted array
+            return copy[floorOfHalfLength];
+        }
+    }
+
+    public static int[] getUrgencyOfRequests() {
+        int[] urgency = new int[DataModel.requestArrivalTime.length - 1];
+        for (int x = 1; x < DataModel.requestArrivalTime.length; x++) {
+            urgency[x - 1] = DataModel.timeWindows[x][1] - DataModel.requestArrivalTime[x];
+        }
+        return urgency;
     }
 
     public static int[] requestArrivalTime;
